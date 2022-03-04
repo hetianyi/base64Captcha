@@ -17,6 +17,10 @@
 package base64Captcha
 
 import (
+	"encoding/base64"
+	"github.com/hetianyi/easygo/file"
+	"github.com/hetianyi/easygo/uuid"
+	"image/color"
 	"math/rand"
 	"reflect"
 	"testing"
@@ -134,5 +138,29 @@ func TestCaptcha_Generate(t *testing.T) {
 				t.Errorf("Captcha.Generate() gotB64s = %v, want %v", gotB64s, tt.wantB64s)
 			}
 		})
+	}
+}
+
+
+
+func TestCaptcha_FontSize(t *testing.T) {
+	var DriverString  = &DriverString {
+		Width: 100,
+		Height: 40,
+		Source: "1234567890qwertyuioplkjhgfdsazxcvbnm",
+		Length: 4,
+		NoiseCount: 10,
+		ShowLineOptions: OptionShowHollowLine,
+		Fonts: []string{"chromohv.ttf"},
+		BgColor: &color.RGBA{255,255,255,255},
+	}
+	var store = DefaultMemStore
+	cx := NewCaptcha(DriverString, store)
+	for i := 0; i < 10; i++ {
+		_, b64s, _ := cx.Generate()
+		bs, _ := base64.StdEncoding.DecodeString(b64s[22:])
+		createFile, _ := file.CreateFile("C:/tmp/" + uuid.UUID() + ".png")
+		createFile.Write(bs)
+		createFile.Close()
 	}
 }

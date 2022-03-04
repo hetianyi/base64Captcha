@@ -205,7 +205,7 @@ func (item *ItemChar) drawNoise(noiseText string, fonts []*truetype.Font) error 
 
 func (item *ItemChar) drawText(text string, fonts []*truetype.Font) error {
 	c := freetype.NewContext()
-	c.SetDPI(imageStringDpi)
+	c.SetDPI(100)
 	c.SetClip(item.nrgba.Bounds())
 	c.SetDst(item.nrgba)
 	c.SetHinting(font.HintingFull)
@@ -217,7 +217,7 @@ func (item *ItemChar) drawText(text string, fonts []*truetype.Font) error {
 	fontWidth := item.width / len(text)
 
 	for i, s := range text {
-		fontSize := item.height * (rand.Intn(7) + 7) / 16
+		fontSize := item.height * (rand.Intn(6) + 12) / 16
 		c.SetSrc(image.NewUniform(RandDeepColor()))
 		c.SetFontSize(float64(fontSize))
 		c.SetFont(randFontFrom(fonts))
