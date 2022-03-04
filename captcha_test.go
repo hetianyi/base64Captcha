@@ -156,7 +156,7 @@ func TestCaptcha_FontSize(t *testing.T) {
 	}
 	var store = DefaultMemStore
 	cx := NewCaptcha(DriverString, store)
-	for i := 0; i < 10; i++ {
+	for i := 0; i < 20; i++ {
 		_, b64s, _ := cx.Generate()
 		bs, _ := base64.StdEncoding.DecodeString(b64s[22:])
 		createFile, _ := file.CreateFile("C:/tmp/" + uuid.UUID() + ".png")
